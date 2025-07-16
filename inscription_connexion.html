@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Inscription & Connexion - TikBoost</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .auth-container { max-width: 400px; margin: 40px auto; background: #111; border-radius: 16px; padding: 32px 24px; box-shadow: 0 4px 24px rgba(0,0,0,0.3); border: 2px solid #25F4EE; }
+    .auth-tabs { display: flex; justify-content: center; margin-bottom: 24px; }
+    .auth-tab { flex: 1; padding: 10px 0; cursor: pointer; background: #222; color: #fff; border: none; border-radius: 8px 8px 0 0; font-weight: bold; font-size: 1.1em; transition: background 0.2s; }
+    .auth-tab.active { background: linear-gradient(90deg,#25F4EE 0%,#FE2C55 100%); color: #fff; }
+    .auth-form { display: none; }
+    .auth-form.active { display: block; }
+    .tiktok-logo { display: block; margin: 0 auto 18px auto; width: 60px; height: 60px; }
+    .auth-container h2 { text-align: center; color: #25F4EE; margin-bottom: 18px; }
+    .auth-container label { color: #fff; font-weight: 500; margin-top: 10px; display: block; }
+    .auth-container input { width: 100%; padding: 10px; margin: 8px 0 18px 0; border: none; border-radius: 8px; background: #222; color: #fff; font-size: 1em; outline: none; box-sizing: border-box; }
+    .auth-container button[type="submit"] { width: 100%; background: linear-gradient(90deg, #25F4EE 0%, #FE2C55 100%); color: #fff; border: none; border-radius: 8px; padding: 12px 0; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
+    .auth-container button[type="submit"]:hover { background: linear-gradient(90deg, #FE2C55 0%, #25F4EE 100%); }
+    .auth-container .switch-link { color: #25F4EE; cursor: pointer; text-decoration: underline; font-size: 0.98em; display: block; text-align: center; margin-top: 10px; }
+  </style>
+</head>
+<body style="background:#fff;">
+  <div class="auth-container">
+    <svg class="tiktok-logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="24" cy="24" r="24" fill="#000"/>
+      <path d="M32.5 14.5c0 2.5 2.5 4.5 5 4.5v4.5c-2.2 0-4.3-0.7-6-2v10.5c0 5.2-4.3 9.5-9.5 9.5S12.5 36.2 12.5 31c0-5.2 4.3-9.5 9.5-9.5v4.5c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5V10.5h4.5V14.5z" fill="#25F4EE"/>
+      <path d="M32.5 14.5c0 2.5 2.5 4.5 5 4.5v4.5c-2.2 0-4.3-0.7-6-2v10.5c0 5.2-4.3 9.5-9.5 9.5S12.5 36.2 12.5 31c0-5.2 4.3-9.5 9.5-9.5v4.5c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5V10.5h4.5V14.5z" fill="#FE2C55" fill-opacity=".6"/>
+      <path d="M32.5 14.5c0 2.5 2.5 4.5 5 4.5v4.5c-2.2 0-4.3-0.7-6-2v10.5c0 5.2-4.3 9.5-9.5 9.5S12.5 36.2 12.5 31c0-5.2 4.3-9.5 9.5-9.5v4.5c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5V10.5h4.5V14.5z" fill="#fff" fill-opacity=".2"/>
+    </svg>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-inscription" onclick="showForm('inscription')">Inscription</button>
+      <button class="auth-tab" id="tab-connexion" onclick="showForm('connexion')">Connexion</button>
+    </div>
+    <form class="auth-form active" id="form-inscription" action="#" method="POST">
+      <h2>Créer un compte</h2>
+      <label for="insc-nom">Nom</label>
+      <input type="text" id="insc-nom" name="nom" required>
+      <label for="insc-email">Email</label>
+      <input type="email" id="insc-email" name="email" required>
+      <label for="insc-mdp">Mot de passe</label>
+      <input type="password" id="insc-mdp" name="mdp" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" title="Le mot de passe doit contenir au moins 6 caractères, des lettres et des chiffres.">
+      <small style="color:#FE2C55;display:block;margin-bottom:10px;">Au moins 6 caractères, lettres et chiffres obligatoires.</small>
+      <button type="submit">S'inscrire</button>
+      <span class="switch-link" onclick="showForm('connexion')">Déjà un compte ? Se connecter</span>
+    </form>
+    <form class="auth-form" id="form-connexion" action="#" method="POST">
+      <h2>Connexion</h2>
+      <label for="conn-email">Email</label>
+      <input type="email" id="conn-email" name="email" required>
+      <label for="conn-mdp">Mot de passe</label>
+      <input type="password" id="conn-mdp" name="mdp" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" title="Le mot de passe doit contenir au moins 6 caractères, des lettres et des chiffres.">
+      <a class="forgot-link" href="#" onclick="alert('Veuillez contacter le support WhatsApp pour réinitialiser votre mot de passe.');return false;">Mot de passe oublié ?</a>
+      <button type="submit">Se connecter</button>
+      <span class="switch-link" onclick="showForm('inscription')">Pas encore de compte ? S'inscrire</span>
+    </form>
+  </div>
+  <script>
+    function showForm(form) {
+      document.getElementById('form-inscription').classList.remove('active');
+      document.getElementById('form-connexion').classList.remove('active');
+      document.getElementById('tab-inscription').classList.remove('active');
+      document.getElementById('tab-connexion').classList.remove('active');
+      if(form === 'inscription') {
+        document.getElementById('form-inscription').classList.add('active');
+        document.getElementById('tab-inscription').classList.add('active');
+      } else {
+        document.getElementById('form-connexion').classList.add('active');
+        document.getElementById('tab-connexion').classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>

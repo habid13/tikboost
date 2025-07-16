@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Tableau de bord - TikBoost</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .dashboard-container { max-width: 900px; margin: 40px auto; background: #fff; border-radius: 16px; padding: 32px 24px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); border: 2px solid #25F4EE; }
+    .dashboard-container h2 { text-align: center; color: #25F4EE; margin-bottom: 24px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+    th, td { border: 1px solid #ddd; padding: 10px 8px; text-align: center; }
+    th { background: linear-gradient(90deg,#25F4EE 0%,#FE2C55 100%); color: #fff; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    tr:hover { background: #e6f7fa; }
+    .total-box { background: #25F4EE; color: #fff; border-radius: 8px; padding: 16px; font-size: 1.2em; text-align: center; margin-bottom: 18px; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body style="background:#fff;">
+  <div class="dashboard-container">
+    <h2>Tableau de bord TikBoost (privé)</h2>
+    <div class="total-box">
+      <span id="total-inscrits">0</span> inscrits &nbsp;|&nbsp; <span id="total-vues">0</span> vues commandées &nbsp;|&nbsp; <span id="total-paiements">0</span> paiements &nbsp;|&nbsp; <span id="total-argent">0</span> FCFA ce mois
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>WhatsApp</th>
+          <th>Vues souhaitées</th>
+          <th>Montant payé (FCFA)</th>
+        </tr>
+      </thead>
+      <tbody id="dashboard-body">
+        <!-- Les lignes seront ajoutées dynamiquement -->
+      </tbody>
+    </table>
+    <button onclick="exportCSV()" style="background:#FE2C55;color:#fff;padding:10px 18px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">Exporter en CSV</button>
+  </div>
+  <script>
+    // Simuler des données (à remplacer par stockage réel ou backend sécurisé)
+    const dashboardData = JSON.parse(localStorage.getItem('tikboost_dashboard') || '[]');
+    function updateDashboard() {
+      const tbody = document.getElementById('dashboard-body');
+      tbody.innerHTML = '';
+      let totalInscrits = dashboardData.length;
+      let totalVues = 0;
+      let totalPaiements = 0;
+      let totalArgent = 0;
+      const moisActuel = new Date().getMonth();
+      dashboardData.forEach(row => {
+        const date = new Date(row.date);
+        const isThisMonth = date.getMonth() === moisActuel;
+        tbody.innerHTML += `<tr><td>${row.date}</td><td>${row.nom}</td><td>${row.email}</td><td>${row.whatsapp}</td><td>${row.vues}</td><td>${row.montant}</td></tr>`;
+        totalVues += parseInt(row.vues);
+        totalPaiements += 1;
+        if(isThisMonth) totalArgent += parseInt(row.montant);
+      });
+      document.getElementById('total-inscrits').textContent = totalInscrits;
+      document.getElementById('total-vues').textContent = totalVues;
+      document.getElementById('total-paiements').textContent = totalPaiements;
+      document.getElementById('total-argent').textContent = totalArgent;
+    }
+    function exportCSV() {
+      let csv = 'Date,Nom,Email,WhatsApp,Vues souhaitées,Montant payé (FCFA)\n';
+      dashboardData.forEach(row => {
+        csv += `${row.date},${row.nom},${row.email},${row.whatsapp},${row.vues},${row.montant}\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'dashboard_tikboost.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    updateDashboard();
+    // Protection d'accès (simple)
+    if(prompt('Mot de passe admin :') !== 'magellan') {
+      document.body.innerHTML = '<h2 style="color:#FE2C55;text-align:center;margin-top:80px;">Accès refusé</h2>';
+    }
+  </script>
+</body>
+</html>

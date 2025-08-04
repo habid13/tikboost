@@ -1,0 +1,77 @@
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #fff;
+  margin-top: 30px;
+  font-size: 2.2em;
+  letter-spacing: 2px;
+}
+
+.tiktok-logo {
+  display: block;
+  margin: 20px auto 10px auto;
+  width: 80px;
+  height: 80px;
+}
+
+form {
+  background: #111;
+  border-radius: 16px;
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 30px 25px 20px 25px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  border: 2px solid #25F4EE;
+}
+
+label {
+  color: #fff;
+  font-weight: 500;
+  margin-top: 10px;
+  display: block;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 18px 0;
+  border: none;
+  border-radius: 8px;
+  background: #222;
+  color: #fff;
+  font-size: 1em;
+  outline: none;
+  box-sizing: border-box;
+}
+
+button[type="submit"] {
+  width: 100%;
+  background: linear-gradient(90deg, #25F4EE 0%, #FE2C55 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(90deg, #FE2C55 0%, #25F4EE 100%);
+}
+
+p {
+  text-align: center;
+  color: #25F4EE;
+  font-size: 1.1em;
+  margin-bottom: 0;
+}
